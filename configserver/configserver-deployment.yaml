@@ -9,8 +9,24 @@ data:
     management.zipkin.tracing.endpoint=${ZIPKIN_ENDPOINT:http://zipkin:9411/api/v2/spans}
     eureka.instance.prefer-ip-address=true
 
+    # Global JWT Properties for Interservice Decentralized Security
+    jwt.secret=${JWT_SECRET:myVeryStrongSecretKeyForJwtAuthentication123456789}
+    jwt.expiration=3600000
+
   api-gateway.properties: |
     # Centralized Gateway Routing using load balancer routing
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedOriginPatterns=*
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowCredentials=true
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedMethods[0]=GET
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedMethods[1]=POST
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedMethods[2]=PUT
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedMethods[3]=DELETE
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedMethods[4]=OPTIONS
+    spring.cloud.gateway.globalcors.cors-configurations.[/**].allowedHeaders=*
+    spring.cloud.gateway.default-filters[0]=DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_LAST
+    spring.cloud.gateway.default-filters[1]=RemoveRequestHeader=Origin
+
+
     spring.cloud.gateway.routes[0].id=product-service
     spring.cloud.gateway.routes[0].uri=lb://product-service
     spring.cloud.gateway.routes[0].predicates[0]=Path=/api/products/**
@@ -71,9 +87,6 @@ data:
     spring.jpa.hibernate.ddl-auto=update
     spring.jpa.show-sql=true
 
-    jwt.secret=${JWT_SECRET:myVeryStrongSecretKeyForJwtAuthentication123456789}
-    jwt.expiration=3600000
-
     spring.rabbitmq.host=${SPRING_RABBITMQ_HOST:localhost}
     spring.rabbitmq.port=${SPRING_RABBITMQ_PORT:5672}
     spring.rabbitmq.username=${SPRING_RABBITMQ_USERNAME:guest}
@@ -100,6 +113,7 @@ data:
     spring.jpa.show-sql=true
     spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
     logging.level.com.example.product_service=DEBUG
+    logging.level.org.springframework.security=DEBUG
 
   order-service.properties: |
     spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/EcommerceDB}
@@ -159,7 +173,7 @@ spec:
     spec:
       containers:
         - name: config-server
-          image: harish1023/microservices-project-config-server:v3
+          image: harish1023/config-server:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8888

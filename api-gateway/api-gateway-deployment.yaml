@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: harish1023/microservices-project-api-gateway:v3
+          image: harish1023/api-gateway:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000

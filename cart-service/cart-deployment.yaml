@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: cart-service
-          image: harish1023/microservices-project-cart-service:v3
+          image: harish1023/cart-service:v1-fixed
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8084

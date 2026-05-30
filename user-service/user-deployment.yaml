@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: harish1023/microservices-project-user-service:v3
+          image: harish1023/user-service:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8086

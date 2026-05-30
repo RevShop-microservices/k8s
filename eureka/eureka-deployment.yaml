@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: harish1023/microservices-project-eureka-server:v3
+          image: harish1023/eureka-server:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8761

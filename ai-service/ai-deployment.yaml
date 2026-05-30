@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ai-service
-          image: harish1023/microservices-project-ai-service:v3
+          image: harish1023/ai-service:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8085

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: harish1023/microservices-project-order-service:v3
+          image: harish1023/order-service:v2-fixed
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8083

@@ -19,9 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend
-
-          image: harish1023/microservices-project-frontend:v3
-
+          image: harish1023/frontend:v4-fixed
           imagePullPolicy: IfNotPresent
 
           ports:

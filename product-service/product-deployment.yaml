@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: harish1023/microservices-project-product-service:v3
+          image: harish1023/product-service:v2-fixed
+          # image: harish1023/product-service:v2-fixed
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
